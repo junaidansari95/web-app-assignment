@@ -6,6 +6,9 @@ import { history } from '../Assets/history'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { IconButton, Box, Typography, Button } from '@material-ui/core';
 class Cart extends React.Component {
+    handleRemoveProduct = (cartItem) => {
+        this.props.removeFromCart(cartItem)
+    }
     render() {
         const { cart } = this.props.cart;
         let totalPrice = 0;
@@ -13,7 +16,7 @@ class Cart extends React.Component {
             totalPrice += cartItem.price
         })
         return (
-            <Box style={{ display: 'flex', flexDirection: 'column', maxWidth: 800, margin:'auto', marginTop:24, marginBottom: 48 }}>
+            <Box style={{ display: 'flex', flexDirection: 'column', maxWidth: 800, margin: 'auto', marginTop: 24, marginBottom: 48 }}>
                 <Box>
                     <IconButton onClick={() => history.push('/')} >
                         <ArrowBackIcon />
@@ -27,7 +30,17 @@ class Cart extends React.Component {
                                 <Typography variant="h6" gutterBottom style={{ marginLeft: 100 }}>{cartItem.name}</Typography>
                                 <img src={cartItem.image} style={{ height: 250, width: 'auto' }} alt='productImage' />
                             </Box>
+                            <Box>
+                            <Button
+                                variant="outlined"
+                                size="small"
+                                color="primary"
+                                style={{ marginTop: 24, marginRight: 10 }}
+                                onClick={()=>this.handleRemoveProduct(cartItem)} >
+                                Remove Product
+                            </Button>
                             <Typography variant="h4" gutterBottom style={{ marginTop: 24, marginRight: 10 }}>₹ {cartItem.price}</Typography>
+                            </Box>
                         </Box>)
                     }
                 </Box>
